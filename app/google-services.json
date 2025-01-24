@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "201653862189",
+    "project_id": "clothtroop",
+    "storage_bucket": "clothtroop.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201653862189:android:56df1efa2cb17ac8b4dda4",
+        "android_client_info": {
+          "package_name": "com.example.clothtroop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8_Uu450xlDXj56ifJnGaNHaSl5OBjOQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
