@@ -4,6 +4,7 @@ accompanistPagerIndicatorVersion = "0.31.2-alpha"
 agp = "8.7.3"
 coilCompose = "2.5.0"
 coilComposeVersion = "2.4.0"
+coilKtCoilCompose = "2.2.2"
 constraintlayoutCompose = "1.1.0"
 foundation = "1.7.6"
 glide = "4.16.0"
@@ -45,6 +46,7 @@ androidx-ui-tooling-preview-v160 = { module = "androidx.compose.ui:ui-tooling-pr
 androidx-ui-tooling-v160 = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiToolingVersion" }
 androidx-ui-v160 = { module = "androidx.compose.ui:ui", version.ref = "uiVersion" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+coil-compose-v222 = { module = "io.coil-kt:coil-compose", version.ref = "coilKtCoilCompose" }
 coil-compose-v240 = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }

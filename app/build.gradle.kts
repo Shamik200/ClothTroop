@@ -76,6 +76,7 @@ dependencies {
 //    implementation(libs.coil.compose.v240)
 
     implementation(libs.coil.compose)
+    implementation(libs.coil.compose.v222)
 //    implementation(libs.accompanist.pager.indicator)
 //    implementation(libs.accompanist.pager.indicator.v0312alpha)
     implementation(libs.accompanist.pager)
