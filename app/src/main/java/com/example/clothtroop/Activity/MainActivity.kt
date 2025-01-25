@@ -70,7 +70,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MainActivityScreen{
-
+                startActivity(Intent(this, CartActivity::class.java))
             }
         }
     }

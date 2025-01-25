@@ -1,5 +1,6 @@
 package com.example.clothtroop.Activity
 
+import android.content.Intent
 import android.graphics.Paint.Align
 import android.media.Image
 import android.os.Bundle
@@ -77,7 +78,7 @@ class DetailActivity : BaseActivity() {
                     managementCart.insertItem(item)
                 },
                 onCartClick={
-
+                    startActivity(Intent(this, CartActivity::class.java))
                 }
             )
         }
