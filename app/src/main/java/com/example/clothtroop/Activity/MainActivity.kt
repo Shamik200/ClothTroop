@@ -1,5 +1,6 @@
 package com.example.clothtroop.Activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -51,11 +53,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.core.content.ContextCompat.startActivity
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.clothtroop.Model.CategoryModel
 import com.example.clothtroop.Model.ItemsModel
-import com.example.clothtroop.Model.ListItems
 import com.example.clothtroop.Model.SliderModel
 import com.example.clothtroop.R
 import com.example.clothtroop.ViewModel.MainViewModel
@@ -114,7 +116,7 @@ fun MainActivityScreen(onCartClick:()->Unit){
         }
     }
 
-    ConstraintLayout(modifier = Modifier.background(Color.White)){
+    ConstraintLayout(modifier = Modifier.background(Color.White).statusBarsPadding()){
         val(scrollList, bottomMenu)=createRefs()
         LazyColumn(
             modifier = Modifier
@@ -130,7 +132,7 @@ fun MainActivityScreen(onCartClick:()->Unit){
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 70.dp)
+                        .padding(top = 30.dp)
                         .padding(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
@@ -252,7 +254,11 @@ fun CategoryList(categories: SnapshotStateList<CategoryModel>) {
                 onItemClick = {
                     selectedIndex=index
                     Handler(Looper.getMainLooper()).postDelayed({
-
+                        val intent= Intent(context, ListItemsActivity::class.java).apply {
+                            putExtra("id", categories[index].id.toString())
+                            putExtra("title", categories[index].title)
+                        }
+                        startActivity(context, intent, null)
                     }, 500)
                 }
             )
@@ -396,7 +402,7 @@ fun IndicatorDot(
 fun BottomMenu(modifier: Modifier, onItemClick: () -> Unit){
     Row(
         modifier = modifier
-            .padding(start = 16.dp, end = 16.dp, bottom = 32.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 20.dp)
             .background(
                 colorResource(R.color.darkBrown),
                 shape = RoundedCornerShape(10.dp)

@@ -79,4 +79,28 @@ class MainRepository {
         })
         return listData
     }
+
+    fun loadFiltered(id:String):LiveData<MutableList<ItemsModel>>{
+        val listData=MutableLiveData<MutableList<ItemsModel>>()
+        val ref=firebaseDatabase.getReference("Items")
+        val query:Query=ref.orderByChild("categoryId").equalTo(id)
+        query.addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val lists= mutableListOf<ItemsModel>()
+                for (childSnapshot in snapshot.children){
+                    val list=childSnapshot.getValue(ItemsModel::class.java)
+                    if(list!=null){
+                        lists.add(list)
+
+                    }
+                }
+                listData.value=lists
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+        return listData
+    }
 }
