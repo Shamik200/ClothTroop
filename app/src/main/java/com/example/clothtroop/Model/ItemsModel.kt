@@ -1,7 +1,5 @@
 package com.example.clothtroop.Model
 
-import android.media.Rating
-import androidx.compose.ui.text.LinkAnnotation
 import java.io.Serializable
 
 data class ItemsModel(

@@ -1,10 +1,8 @@
 package com.example.clothtroop.Activity
 
-import android.graphics.Paint.Align
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,10 +23,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -43,18 +41,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.MotionLayoutDebugFlags
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.clothtroop.Model.CategoryModel
@@ -71,14 +67,16 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainActivityScreen()
+            MainActivityScreen{
+
+            }
         }
     }
 }
 
 @Composable
 //@Preview
-fun MainActivityScreen(){
+fun MainActivityScreen(onCartClick:()->Unit){
     val viewModel=MainViewModel()
 
     val banners= remember { mutableStateListOf<SliderModel>() }
@@ -208,6 +206,7 @@ fun MainActivityScreen(){
                 SectionTitle("Most Popular", "See All")
             }
 
+            //Popular
             item{
                 if(showPopularLoading){
                     Box(
@@ -223,6 +222,15 @@ fun MainActivityScreen(){
                 }
             }
         }
+
+        BottomMenu(
+            modifier = Modifier
+                .fillMaxWidth()
+                .constrainAs(bottomMenu){
+                    bottom.linkTo(parent.bottom)
+                },
+            onItemClick = onCartClick
+        )
     }
 }
 
@@ -382,4 +390,39 @@ fun IndicatorDot(
             .clip(CircleShape)
             .background(color)
     )
+}
+
+@Composable
+fun BottomMenu(modifier: Modifier, onItemClick: () -> Unit){
+    Row(
+        modifier = modifier
+            .padding(start = 16.dp, end = 16.dp, bottom = 32.dp)
+            .background(
+                colorResource(R.color.darkBrown),
+                shape = RoundedCornerShape(10.dp)
+            ),
+        horizontalArrangement = Arrangement.SpaceAround
+    ){
+        BottomMenuItem(icon = painterResource(R.drawable.btn_1), text = "Explorer")
+        BottomMenuItem(icon = painterResource(R.drawable.btn_2), text = "Cart", onItemClick=onItemClick)
+        BottomMenuItem(icon = painterResource(R.drawable.btn_3), text = "Favorite")
+        BottomMenuItem(icon = painterResource(R.drawable.btn_4), text = "Orders")
+        BottomMenuItem(icon = painterResource(R.drawable.btn_5), text = "Profile")
+    }
+}
+
+@Composable
+fun BottomMenuItem(icon:Painter, text:String, onItemClick: (()->Unit)?=null){
+    Column(
+        modifier = Modifier
+            .height(70.dp)
+            .clickable { onItemClick?.invoke() }
+            .padding(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ){
+        Icon(icon, contentDescription = text, tint = Color.White)
+        Spacer(modifier = Modifier.padding(vertical = 4.dp))
+        Text(text, color = Color.White, fontSize = 10.sp)
+    }
 }
