@@ -1,10 +1,8 @@
 package com.example.clothtroop.Activity
 
-import android.app.LocaleManager
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,6 +23,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -39,14 +38,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import coil.compose.rememberAsyncImagePainter
 import com.example.clothtroop.Model.ItemsModel
 import com.example.clothtroop.R
 import com.example.project1762.Helper.ChangeNumberItemsListener
 import com.example.project1762.Helper.ManagmentCart
-import java.util.ArrayList
 
 class CartActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,13 +64,14 @@ fun calculatorCart(managementCart: ManagmentCart, tax:MutableState<Double>){
     tax.value=Math.round((managementCart.getTotalFee()*percentTax)*100)/100.0
 }
 
+@SuppressLint("MutableCollectionMutableState")
 @Composable
 private fun CartScreen(
     managementCart: ManagmentCart=ManagmentCart(LocalContext.current),
     onBackClick:()->Unit
 ){
     val cartItems=remember{ mutableStateOf(managementCart.getListCart()) }
-    val tax= remember { mutableStateOf(0.0) }
+    val tax= remember { mutableDoubleStateOf(0.0) }
     calculatorCart(managementCart, tax)
     Column(
         modifier = Modifier
@@ -113,7 +110,7 @@ private fun CartScreen(
             }
             CartSummary(
                 itemTotal=managementCart.getTotalFee(),
-                tax=tax.value,
+                tax=tax.doubleValue,
                 delivery=10.0
             )
         }
@@ -327,7 +324,7 @@ fun CartItem(
                         colorResource(R.color.white),
                         shape = RoundedCornerShape(100.dp)
                     )
-                    .constrainAs(plusCartBtn){
+                    .constrainAs(minusCartBtn){
                         start.linkTo(parent.start)
                         top.linkTo(parent.top)
                         bottom.linkTo(parent.bottom)
