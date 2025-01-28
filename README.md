@@ -22,10 +22,6 @@ ClothTroop is a modern e-commerce application for seamless shopping experiences 
   <img width="30%" height="50%" src="https://github.com/Shamik200/ClothTroop/blob/main/app/src/main/res/drawable/img5.jpg" />
 </p>
 
-<p align="center" width="100%">
-   <img width="35%" height="50%" src="https://github.com/piashcse/Hilt-MVVM-Compose-Movie/blob/master/screenshots/movie_world.gif" />
- </p>
-
 # Project Layout Structure
 - Introduction (Splash Screen)
 - Cloth Shop
